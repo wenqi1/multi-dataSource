@@ -1,6 +1,6 @@
 package com.learn.multidatasource.service.impl;
 
-import com.learn.multidatasource.config.DatabaseContextHolder;
+import com.learn.multidatasource.annotation.DynamicDataSource;
 import com.learn.multidatasource.entity.ErpUser;
 import com.learn.multidatasource.entity.LearnUser;
 import com.learn.multidatasource.enums.DatabaseType;
@@ -20,13 +20,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ErpUser getErpUser(Integer id) {
-        DatabaseContextHolder.setDatabaseType(DatabaseType.ERP);
         return erpMapper.selectByPrimaryKey(id);
     }
 
     @Override
+    @DynamicDataSource(dataSourceType=DatabaseType.LEARN)
     public LearnUser getLearnUser(Integer id) {
-        DatabaseContextHolder.setDatabaseType(DatabaseType.LEARN);
         return learnMapper.selectByPrimaryKey(id);
     }
 }

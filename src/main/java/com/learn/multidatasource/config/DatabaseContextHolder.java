@@ -16,4 +16,8 @@ public class DatabaseContextHolder {
         return contextHolder.get();
     }
 
+    public static void clear() {
+        contextHolder.remove();
+    }
+
 }
